@@ -5,6 +5,7 @@ import { COOKIE_NAME } from "@/shared/constants";
 interface IUserReceived {
   user: {
     name: string;
+    username: string;
     uuid: string;
     photo: string;
     email: string;
@@ -19,7 +20,15 @@ export const getUserSession = (): IUserReceived | null => {
     return null;
   }
 
-  const userReceived = JSON.parse(cookie);
+  const userReceived = JSON.parse(cookie) as IUserReceived;
 
-  return userReceived;
+  return {
+    accessToken: userReceived.accessToken,
+    user: {
+      ...userReceived.user,
+      photo: userReceived.user.photo
+        ? userReceived.user.photo
+        : "/img/no-image.jpeg",
+    },
+  } as IUserReceived;
 };
