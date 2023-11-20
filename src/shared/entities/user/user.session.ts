@@ -26,7 +26,7 @@ export const getUserSession = (): IUserReceived | null => {
     accessToken: userReceived.accessToken,
     user: {
       ...userReceived.user,
-      photo: userReceived.user.photo
+      photo: userReceived.user?.photo
         ? userReceived.user.photo
         : "/img/no-image.jpeg",
     },
