@@ -12,15 +12,11 @@ type OutputAuthenticationUserService = {
   message: string;
 };
 
-export const AuthenticationUserService = async ({
-  email,
-  password,
-}: InputAuthenticationUserService): Promise<OutputAuthenticationUserService> => {
+export const AuthenticationUserService = async (
+  input: InputAuthenticationUserService,
+): Promise<OutputAuthenticationUserService> => {
   try {
-    const response = await api.post("/login", {
-      email,
-      password,
-    });
+    const response = await api.post("/login", input);
 
     if (response.status < 400) {
       setCookie(undefined, COOKIE_NAME, JSON.stringify(response.data));

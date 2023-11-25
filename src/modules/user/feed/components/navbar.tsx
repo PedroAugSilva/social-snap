@@ -1,8 +1,9 @@
 "use client";
 import { getUserSession } from "@/shared/entities/user/user.session";
-import { color } from "framer-motion";
 import { Plus, Search } from "lucide-react";
 import colors from "tailwindcss/colors";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Modal } from "./modal";
 
 export const Navbar = () => {
   const session = getUserSession();
@@ -36,9 +37,15 @@ export const Navbar = () => {
           <li className="flex h-full items-center gap-3 px-2 text-sm text-gray-700">
             <span className="cursor-pointer hover:text-gray-500">Feed</span>
             <span className="cursor-pointer hover:text-gray-500">Curtidas</span>
-            <button className="flex h-full items-center rounded-lg bg-gray-800 px-2 text-white hover:bg-black">
-              <Plus size={16} className="mr-2" /> Nova postagem
-            </button>
+            <Dialog.Root>
+              <Dialog.Trigger className="flex h-full items-center rounded-lg bg-gray-800 px-2 text-white hover:bg-black">
+                <Plus size={16} className="mr-2" /> Nova postagem
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="absolute inset-0  h-screen w-screen bg-black/20 backdrop-blur-sm" />
+                <Modal />
+              </Dialog.Portal>
+            </Dialog.Root>
           </li>
         </ul>
       </nav>
